@@ -14,20 +14,28 @@ export default class News extends Component {
     pageSize: PropTypes.number,
     category: PropTypes.string,
   };
-  constructor() {
-    super();
+
+  capitalize = (string)=>{
+    return string.charAt(0).toUpperCase() + string.slice(1);
+
+  }
+  constructor(props) {
+    super(props);
     this.state = {
       articles: [],
       page: 1,
       loading: false,
     };
+    document.title = `${this.capitalize(this.props.category)} - NewsCatcher`
   }
 
 
   async componentDidMount() {
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=4c8ef575acb249c98444c60e30b7a1c9&page=1&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
-    let data = await fetch(url);
+    let data = await fetch(url,{
+      mode: 'cors',
+  });
     let parsedData = await data.json();
     this.setState({
       articles: parsedData.articles,
@@ -64,7 +72,7 @@ export default class News extends Component {
     return (
       <div className="container my-3">
         <h1 className="text-center" style={{ margin: "20px" }}>
-          Top Headlines
+          Top Headlines From {this.capitalize(this.props.category)}
         </h1>
         {this.state.loading && <Loading />}
         <div className="row">
