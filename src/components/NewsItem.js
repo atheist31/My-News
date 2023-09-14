@@ -2,15 +2,24 @@ import React, { Component } from "react";
 
 export default class NewsItem extends Component {
   render() {
-    let { title, description, imageUrl, newsUrl, author, date, source } = this.props;
+    let { title, description, imageUrl, newsUrl, author, date, source } =
+      this.props;
     return (
       <div className="my-3 mx-2">
         <div
           className="card"
           style={{ width: "18 rem", border: "2px solid black" }}
         >
-          <span className="position-absolute top-0  translate-middle badge rounded-pill bg-info" style={{left:"90%",zIndex:"1"}}>
-                {source}</span>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              position: "absolute",
+              right: "0",
+            }}
+          >
+            <span className="badge rounded-pill bg-info">{source}</span>
+          </div>
           <img
             height={"300px"}
             src={
@@ -22,10 +31,7 @@ export default class NewsItem extends Component {
             alt="..."
           />
           <div className="card-body">
-            <h5 className="card-title">
-              {title}
-              
-            </h5>
+            <h5 className="card-title">{title}</h5>
             <p className="card-text">{description}</p>
             <p class="card-text">
               <small className="text-muted">
